@@ -1,13 +1,12 @@
-import express from "express";
-import cors from "cors";
-import dotenv from "dotenv";
-
-dotenv.config();
-
+require("dotenv").config()
+const express = require("express");
+const connectDB = require("./config/db.js")
+const userRoutes= require("./routes/userRoutes.js")
 const app = express();
 
-app.use(cors());
 app.use(express.json());
+app.use("/user",userRoutes);
+connectDB();
 
 app.get("/", (req, res) => {
   res.send("API is running 🚀");
