@@ -64,6 +64,28 @@ const userSchema=new mongoose.Schema({
             type:String,
             default:"India"
         }   
+    },
+    isOtpVerified: {
+        type: Boolean,
+        default: false
+    },
+    is_active:{
+        type:Boolean,
+        default:true
+    },
+    is_deleted:{
+        type:Boolean,
+        default:false
+    },
+    deletedAt:{
+        type:Date,
+        default:null
+    },
+    token:{
+      type:String
+    },
+    tokenExpiry:{
+      type:Date
     }
 })
 module.exports=mongoose.model("User",userSchema);
