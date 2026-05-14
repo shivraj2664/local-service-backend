@@ -1,11 +1,16 @@
 require("dotenv").config()
 const express = require("express");
 const connectDB = require("./config/db.js")
-const userRoutes= require("./routes/userRoutes.js")
+const userRoutes= require("./routes/userRoutes.js");
+const uploadRoutes = require("./routes/uploadRoutes.js")
+const serviceRoutes = require("./routes/serviceRoutes.js")
 const app = express();
 
 app.use(express.json());
 app.use("/user",userRoutes);
+app.use("/api",uploadRoutes);
+app.use("/service",serviceRoutes);
+
 connectDB();
 
 app.get("/", (req, res) => {
