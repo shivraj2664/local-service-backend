@@ -24,8 +24,8 @@ exports.createService = async(req,res)=>{
 
 exports.getAllServices = async(req,res)=>{
     try{
-        const page = parseInt(req.body.page) || 1;
-        const limit = parseInt(req.body.limit) || 5;
+        const page = parseInt(req.body?.page) || 1;
+        const limit = parseInt(req.body?.limit) || 5;
 
         const skip = (page - 1) * limit;
 
