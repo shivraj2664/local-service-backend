@@ -6,6 +6,6 @@ router.post("/create-service",serviceController.createService);
 router.post("/getAllServices",serviceController.getAllServices);
 router.get("/getServiceByName/:title",serviceController.getServiceByName);
 router.get("/getServiceById/:id",serviceController.getServiceById);
-
+router.put("/updateAll",serviceController.updateRatings);
 
 module.exports = router;
