@@ -33,16 +33,37 @@ exports.getAllServices = async(req,res)=>{
             available
         } = req.body
 
-        // const page = parseInt(req.body?.page) || 1;
-        // const limit = parseInt(req.body?.limit) || 5;
 
         const skip = (page - 1) * limit;
 
-        const totalServices = await Service.countDocuments({
-            is_deleted : false
-        });
+        let filter = {
+            is_deleted: false,
+            is_active: true
+        };
 
-        const services = await Service.find({ is_deleted:false})
+        if(category && category !== "All"){
+            filter.category = category
+        }
+        
+        if(maxPrice){
+            filter.price={
+                $lte: Number(maxPrice),
+            };
+        }
+
+        if(rating){
+            filter.rating = {
+                $gte: Number(rating),
+            };
+        }
+
+        if(available === true){
+            filter.is_active = true;
+        }
+
+        const totalServices = await Service.countDocuments(filter);
+
+        const services = await Service.find(filter)
         .skip(skip)
         .limit(limit);
 
