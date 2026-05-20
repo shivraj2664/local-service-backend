@@ -24,8 +24,17 @@ exports.createService = async(req,res)=>{
 
 exports.getAllServices = async(req,res)=>{
     try{
-        const page = parseInt(req.body?.page) || 1;
-        const limit = parseInt(req.body?.limit) || 5;
+        const {
+            page = 1,
+            limit = 5,
+            category,
+            maxPrice,
+            rating,
+            available
+        } = req.body
+
+        // const page = parseInt(req.body?.page) || 1;
+        // const limit = parseInt(req.body?.limit) || 5;
 
         const skip = (page - 1) * limit;
 
@@ -33,16 +42,18 @@ exports.getAllServices = async(req,res)=>{
             is_deleted : false
         });
 
-        const services = await Service.find()
+        const services = await Service.find({ is_deleted:false})
         .skip(skip)
         .limit(limit);
 
         res.status(200).json({
+            success: true,
             totalServices,
-            currentPage: page,
+            currentPage: Number(page),
             totalPages: Math.ceil(totalServices / limit),
-            services
+            services,
         });
+
     }   catch(error){
         res.status(500).json({
             message:"error fetching services",
@@ -60,5 +71,30 @@ exports.getServiceById = async(req,res)=>{
     res.json(services);
 }
 
+exports.updateRatings = async (req, res) => {
+  try {
 
-exports.updateService
+    const services = await Service.find();
+
+    for (const service of services) {
+
+      service.rating = (Math.random() * 2 + 3).toFixed(1);
+      service.total_reviews = Math.floor(Math.random() * 500);
+
+      await service.save();
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Ratings updated successfully"
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      error: error.message
+    });
+
+  }
+};
