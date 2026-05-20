@@ -9,7 +9,7 @@ exports.createService = async(req,res)=>{
         //     title,description,category,price,discount_price,duration
         // }]
 
-        return res.status(201).json({   
+        return res.status(201).json({ 
             success:true,
             message:"service created successfully",
             data:service
@@ -86,6 +86,7 @@ exports.getAllServices = async(req,res)=>{
         });
     }
 }
+
 exports.getServiceByName = async(req,res)=>{
     const services = await Service.findOne({title:req.params.title});
     res.json(services);
