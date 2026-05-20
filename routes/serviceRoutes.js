@@ -8,4 +8,5 @@ router.get("/getServiceByName/:title",serviceController.getServiceByName);
 router.get("/getServiceById/:id",serviceController.getServiceById);
 router.put("/updateAll",serviceController.updateRatings);
 
+
 module.exports = router;

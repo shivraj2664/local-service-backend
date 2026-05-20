@@ -38,36 +38,11 @@ exports.getAllServices = async(req,res)=>{
 
         const skip = (page - 1) * limit;
 
-        let filter = {
-            is_deleted: false,
-            is_active: true
-        };
+        const totalServices = await Service.countDocuments({
+            is_deleted : false
+        });
 
-        if(category && category !== "All"){
-            filter.category = category
-        }
-        // const totalServices = await Service.countDocuments({
-        //     is_deleted : false
-        // });
-        if(maxPrice){
-            filter.price={
-                $lte: Number(maxPrice),
-            };
-        }
-
-        if(rating){
-            filter.rating = {
-                $gte: Number(rating),
-            };
-        }
-
-        if(available === true){
-            filter.is_active = true;
-        }
-
-        const totalServices = await Service.countDocuments(filter);
-
-        const services = await Service.find(filter)
+        const services = await Service.find({ is_deleted:false})
         .skip(skip)
         .limit(limit);
 
