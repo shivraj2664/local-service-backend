@@ -33,7 +33,7 @@ exports.getAllServices = async(req,res)=>{
             is_deleted : false
         });
 
-        const services = await Service.find({ is_deleted:false})
+        const services = await Service.find()
         .skip(skip)
         .limit(limit);
 

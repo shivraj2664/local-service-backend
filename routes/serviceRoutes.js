@@ -7,5 +7,4 @@ router.post("/getAllServices",serviceController.getAllServices);
 router.get("/getServiceByName/:title",serviceController.getServiceByName);
 router.get("/getServiceById/:id",serviceController.getServiceById);
 
-
 module.exports = router;
