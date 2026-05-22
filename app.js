@@ -11,10 +11,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-app.use("/user", userRoutes);
-app.use("/api", uploadRoutes);
-app.use("/service", serviceRoutes);
-
+app.use("/uploads",express.static("uploads"));
 app.use(express.json());
 app.use("/user",userRoutes);
 app.use("/api",uploadRoutes);

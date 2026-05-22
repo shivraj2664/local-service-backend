@@ -31,7 +31,7 @@ exports.getAllServices = async(req,res)=>{
             maxPrice,
             rating,
             available
-        } = req.body
+        } = req.body || {};
 
 
         const skip = (page - 1) * limit;
@@ -44,7 +44,7 @@ exports.getAllServices = async(req,res)=>{
         if(category && category !== "All"){
             filter.category = category
         }
-        
+
         if(maxPrice){
             filter.price={
                 $lte: Number(maxPrice),
@@ -91,6 +91,19 @@ exports.getServiceByName = async(req,res)=>{
 exports.getServiceById = async(req,res)=>{
     const services = await Service.findById(req.params.id);
     res.json(services);
+}
+
+exports.updateAll = async(req,res)=>{
+    const services = await Service.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {new:true}
+    );
+    res.status(201).json({
+        success:true,
+        message:"Data updated Successfully",
+        data:services
+    });
 }
 
 exports.updateRatings = async (req, res) => {
